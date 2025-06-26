@@ -16,7 +16,6 @@ export async function getThoughts(): Promise<Thought[]> {
       "eurfelux/shelter-cafe-manager/contents/backend/app/data/thoughts.json";
 
     const res = await fetch(`/api/github?path=${path}`);
-    console.log("res", res);
 
     if (!res.ok) {
       throw new Error("Failed to fetch thoughts");

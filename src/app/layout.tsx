@@ -27,7 +27,7 @@ export default function RootLayout({
   return (
     <html lang="zh-CN" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col justify-start`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col justify-start h-screen`}
       >
         <ThemeProvider
           attribute="class"
@@ -36,7 +36,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <CafeNavigationMenu></CafeNavigationMenu>
-          <main>{children}</main>
+          <main className="flex flex-col grow items-center">{children}</main>
         </ThemeProvider>
       </body>
     </html>

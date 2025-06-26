@@ -1,10 +1,11 @@
 // lib/getThoughts.ts
+import { GET } from '@/app/api/github';
 import { Thought } from '@/types/thought';
-import { randomUUID } from 'crypto';
+import { v4 as uuidv4 } from 'uuid';
 
 export function createThought(content: string): Thought {
     return {
-        id: randomUUID(),
+        id: uuidv4(),
         content,
         createdAt: new Date()
     }
@@ -13,12 +14,10 @@ export function createThought(content: string): Thought {
 
 export async function getThoughts(): Promise<Thought[]> {
   try {
-    // 在生产环境和开发环境都从公共URL获取
-    const baseUrl = process.env.NODE_ENV === 'development' 
-      ? 'http://localhost:3000' 
-      : process.env.NEXT_PUBLIC_BASE_URL || '';
-    
-    const res = await fetch(`${baseUrl}/thoughts.json`);
+    const path = 'eurfelux/shelter-cafe-manager/thoughts.json'
+  
+    const res = await GET(path)
+    console.log("res", res)
     
     if (!res.ok) {
       throw new Error('Failed to fetch thoughts');

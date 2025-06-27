@@ -13,7 +13,7 @@ import styled from "styled-components";
 
 export function CafeNavigationMenu() {
   return (
-    <NavigationMenuContainer className="flex justify-center p-2 mx-2 border-b-2 border-b-gray-100">
+    <NavigationMenuContainer className="flex justify-center p-2 border-b-2 border-b-gray-100 sticky top-0 bg-background">
       <NavigationMenu viewport={false} className="justify-center self-stretch">
         <NavigationMenuList className="flex justify-center">
           <NavigationMenuItem>

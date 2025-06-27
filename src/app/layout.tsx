@@ -25,9 +25,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="zh-CN" suppressHydrationWarning>
+    <html lang="zh-CN" suppressHydrationWarning className="h-full">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col justify-start h-screen`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col justify-start h-full overflow-y-auto`}
       >
         <ThemeProvider
           attribute="class"

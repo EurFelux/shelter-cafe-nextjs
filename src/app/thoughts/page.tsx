@@ -1,13 +1,13 @@
 "use client";
 import CenterContainer from "@/components/ui/center-container";
 import { EmptyState } from "@/components/ui/empty-data";
-import { LoadingSpinner } from "@/components/ui/loading-spinner";
 import { Separator } from "@/components/ui/separator";
 import { TypographyMuted, TypographyP } from "@/components/ui/typography";
 import { getThoughts } from "@/lib/thoughts";
 import { Thought } from "@/types/thought";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import ThoughtsSkeleton from "./thoughts-skeleton";
 
 export default function Thoughts() {
   const [thoughts, setThoughts] = useState<Thought[]>([]);
@@ -27,14 +27,7 @@ export default function Thoughts() {
     fetchThoughts();
   }, []);
 
-  if (loading)
-    return (
-      <CenterContainer>
-        <LoadingSpinner />
-      </CenterContainer>
-    );
-
-  if (!thoughts.length)
+  if (thoughts.length === 0 && !loading)
     return (
       <CenterContainer>
         <EmptyState />
@@ -48,7 +41,11 @@ export default function Thoughts() {
           我在这里记录我的一些想法🤔，或者灵感💡？也可能只是碎碎念🤐
         </TypographyP>
       </ThoughtsDescriptionContainer>
-      {thoughts.map((thought) => (
+      {
+        loading &&
+        <ThoughtsSkeleton />
+      }
+      {!loading && thoughts.map((thought) => (
         <ThoughtItemContainer key={thought.id} className="self-stretch">
           <Separator />
           <ThoughtItem className="my-2 p-2 h-32 flex flex-col">

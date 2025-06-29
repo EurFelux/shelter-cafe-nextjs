@@ -1,4 +1,5 @@
 import { CafeNavigationMenu } from "@/components/cafe-menubar";
+import { Separator } from "@/components/ui/separator";
 import type { Metadata } from "next";
 import { ThemeProvider } from "next-themes";
 import { Geist, Geist_Mono } from "next/font/google";
@@ -35,7 +36,8 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <CafeNavigationMenu></CafeNavigationMenu>
+          <CafeNavigationMenu />
+          <Separator />
           <main className="flex flex-col grow items-center">{children}</main>
         </ThemeProvider>
       </body>

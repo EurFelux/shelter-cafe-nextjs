@@ -17,15 +17,16 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
 const auth = getAuth(app);
 
 // 自动登录匿名用户
-signInAnonymously(auth)
+await signInAnonymously(auth)
   .then(() => {
     console.log("Signed in anonymously");
   })
   .catch((error) => {
     console.error("Anonymous sign-in failed:", error);
   });
+
+const db = getFirestore(app);
 export { app, db };

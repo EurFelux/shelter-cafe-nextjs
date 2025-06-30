@@ -17,7 +17,9 @@ export default function Thoughts() {
 
     const fetchThoughts = async () => {
       const fetchedThoughts = await getThoughts();
-      console.log(fetchedThoughts)
+      fetchedThoughts.forEach((thought) => {
+        thought.createdAt = new Date(thought.createdAt)
+      })
       setThoughts(
         fetchedThoughts.sort(
           (a, b) => b.createdAt.getTime() - a.createdAt.getTime(),
@@ -56,7 +58,7 @@ export default function Thoughts() {
             </ThoughtContent>
             <ThoughtFooter className="text-right">
               <TypographyMuted>
-                {(new Date(thought.createdAt)).toLocaleString()}
+                {thought.createdAt.toLocaleString()}
               </TypographyMuted>
             </ThoughtFooter>
           </ThoughtItem>

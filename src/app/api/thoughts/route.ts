@@ -1,7 +1,7 @@
 // app/api/thoughts/route.ts
-import { db } from "@/lib/firebase"; // 注意路径可能不同
+import { db } from "@/lib/firebase";
 import { Thought } from "@/types/thought";
-import { collection, getDocs, Timestamp } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 import { NextResponse } from "next/server";
 
 export async function GET() {
@@ -12,7 +12,7 @@ export async function GET() {
       return {
         id: doc.id,
         content: data.content,
-        createdAt: (data.createdAt as Timestamp).toDate(),
+        createdAt: data.createdAt,
       };
     });
 

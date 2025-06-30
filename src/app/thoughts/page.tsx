@@ -14,8 +14,10 @@ export default function Thoughts() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+
     const fetchThoughts = async () => {
       const fetchedThoughts = await getThoughts();
+      console.log(fetchedThoughts)
       setThoughts(
         fetchedThoughts.sort(
           (a, b) => b.createdAt.getTime() - a.createdAt.getTime(),
@@ -54,7 +56,7 @@ export default function Thoughts() {
             </ThoughtContent>
             <ThoughtFooter className="text-right">
               <TypographyMuted>
-                {thought.createdAt.toLocaleString()}
+                {(new Date(thought.createdAt)).toLocaleString()}
               </TypographyMuted>
             </ThoughtFooter>
           </ThoughtItem>

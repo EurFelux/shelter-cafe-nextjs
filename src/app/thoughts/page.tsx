@@ -52,11 +52,11 @@ export default function Thoughts() {
       {!loading && thoughts.map((thought) => (
         <ThoughtItemContainer key={thought.id} className="self-stretch">
           <Separator />
-          <ThoughtItem className="my-2 p-2 h-32 flex flex-col">
-            <ThoughtContent className="grow flex flex-col justify-center">
+          <ThoughtItem className="my-2 p-2 min-h-32 flex flex-col">
+            <ThoughtContent className="grow flex flex-col justify-start">
               <TypographyP>{thought.content}</TypographyP>
             </ThoughtContent>
-            <ThoughtFooter className="text-right">
+            <ThoughtFooter className="text-right pt-2">
               <TypographyMuted>
                 {thought.createdAt.toLocaleString()}
               </TypographyMuted>

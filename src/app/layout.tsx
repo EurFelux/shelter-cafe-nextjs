@@ -1,5 +1,4 @@
 import { CafeNavigationMenu } from "@/components/cafe-menubar";
-import { Separator } from "@/components/ui/separator";
 import type { Metadata } from "next";
 import { ThemeProvider } from "next-themes";
 import { Geist, Geist_Mono } from "next/font/google";
@@ -26,7 +25,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="zh-CN" suppressHydrationWarning className="h-full">
+    <html lang="zh-CN" suppressHydrationWarning className="min-h-full">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col justify-start h-full overflow-y-auto`}
       >
@@ -37,7 +36,6 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <CafeNavigationMenu />
-          <Separator />
           <main className="flex flex-col grow items-center">{children}</main>
         </ThemeProvider>
       </body>

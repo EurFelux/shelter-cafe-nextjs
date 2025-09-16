@@ -28,7 +28,31 @@ export default function Thoughts() {
       setLoading(false);
     };
 
+    // const mockThoughts = [
+    //   {
+    //     id: "1",
+    //     content: "Just finished reading 'The Pragmatic Programmer'. So many valuable insights about software development!",
+    //     createdAt: new Date("2024-03-15T10:30:00")
+    //   },
+    //   {
+    //     id: "2",
+    //     content: "Learning Next.js has been an amazing journey. The way it handles server-side rendering is elegant.",
+    //     createdAt: new Date("2024-03-14T15:45:00")
+    //   },
+    //   {
+    //     id: "3",
+    //     content: "Today's coffee at the local cafe was exceptional. Perfect blend of flavors! ☕",
+    //     createdAt: new Date("2024-03-13T09:20:00")
+    //   },
+    //   {
+    //     id: "4",
+    //     content: "Spent the evening stargazing. The universe is incredibly vast and beautiful. 🌟",
+    //     createdAt: new Date("2024-03-12T22:15:00")
+    //   }
+    // ] satisfies Thought[]
+
     fetchThoughts();
+    // setThoughts(mock)
   }, []);
 
   if (thoughts.length === 0 && !loading)

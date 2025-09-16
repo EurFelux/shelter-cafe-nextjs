@@ -9,6 +9,7 @@ type Props = {
 export default function ThoughtsSkeleton({ className }: Props) {
     return (
         <ThoughtSkeletonContainer className={className}>
+            <Separator />
             <ThoughtSkeleton className="my-2 p-2" />
             <Separator />
             <ThoughtSkeleton className="my-2 p-2" />

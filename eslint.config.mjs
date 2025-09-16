@@ -1,4 +1,5 @@
 import { FlatCompat } from "@eslint/eslintrc";
+import oxlint from 'eslint-plugin-oxlint';
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 
@@ -18,15 +19,11 @@ const eslintConfig = [
       "quotes": ["error", "double", { 
         "avoidEscape": true,  // 允许在需要时使用转义字符
         "allowTemplateLiterals": true  // 允许模板字符串
-      }],
-      
-      // TypeScript 特定引号规则
-      "@typescript-eslint/quotes": ["error", "double", {
-        "avoidEscape": true,
-        "allowTemplateLiterals": true
       }]
     }
-  }
+  },
+  ...oxlint.configs['flat/recommended'],
+  ...oxlint.configs['flat/react']
 ];
 
 export default eslintConfig;

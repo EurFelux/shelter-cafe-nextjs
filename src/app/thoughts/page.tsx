@@ -26,9 +26,8 @@ async function getThoughts(): Promise<Thought[]> {
 
 export default function Thoughts() {
   const [thoughts, setThoughts] = useState<Thought[]>([]);
-  // @ts-ignore
   const fetcher: Fetcher<Thought[]> = () => getThoughts()
-  const { data, isLoading, error } = useSWR('/api/thoughts', fetcher)
+  const { data, isLoading, error } = useSWR("/api/thoughts", fetcher)
 
   useEffect(() => {
     if (!data) return

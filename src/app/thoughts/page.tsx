@@ -3,30 +3,44 @@ import CenterContainer from "@/components/ui/center-container";
 import { EmptyState } from "@/components/ui/empty-data";
 import { Separator } from "@/components/ui/separator";
 import { TypographyMuted, TypographyP } from "@/components/ui/typography";
-import { getThoughts } from "@/lib/thoughts";
 import { Thought } from "@/types/thought";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import useSWR, { Fetcher } from "swr";
 import ThoughtsSkeleton from "./thoughts-skeleton";
+
+async function getThoughts(): Promise<Thought[]> {
+  try {
+    const res = await fetch(`/api/thoughts`);
+
+    if (!res.ok) {
+      throw new Error("Failed to fetch thoughts");
+    }
+
+    return await res.json();
+  } catch (error) {
+    console.error("Error fetching thoughts:", error);
+    return [];
+  }
+}
 
 export default function Thoughts() {
   const [thoughts, setThoughts] = useState<Thought[]>([]);
-  const [loading, setLoading] = useState(true);
+  // @ts-ignore
+  const fetcher: Fetcher<Thought[]> = () => getThoughts()
+  const { data, isLoading, error } = useSWR('/api/thoughts', fetcher)
 
   useEffect(() => {
+    if (!data) return
 
-    const fetchThoughts = async () => {
-      const fetchedThoughts = await getThoughts();
-      fetchedThoughts.forEach((thought) => {
-        thought.createdAt = new Date(thought.createdAt)
-      })
-      setThoughts(
-        fetchedThoughts.sort(
-          (a, b) => b.createdAt.getTime() - a.createdAt.getTime(),
-        ),
-      );
-      setLoading(false);
-    };
+    data.forEach((thought) => {
+      thought.createdAt = new Date(thought.createdAt)
+    })
+    setThoughts(
+      data.sort(
+        (a, b) => b.createdAt.getTime() - a.createdAt.getTime(),
+      ),
+    );
 
     // const mockThoughts = [
     //   {
@@ -51,16 +65,26 @@ export default function Thoughts() {
     //   }
     // ] satisfies Thought[]
 
-    fetchThoughts();
     // setThoughts(mock)
-  }, []);
+  }, [data]);
 
-  if (thoughts.length === 0 && !loading)
+  if (thoughts.length === 0 && !isLoading)
     return (
       <CenterContainer>
         <EmptyState />
       </CenterContainer>
     );
+
+  if (error) {
+    return (
+      <CenterContainer>
+        <div className="flex flex-col items-center justify-center gap-4">
+          <TypographyP>Failed to load thoughts</TypographyP>
+          <TypographyMuted>{error?.message}</TypographyMuted>
+        </div>
+      </CenterContainer>
+    );
+  }
 
   return (
     <ThoughtsContainer className="flex flex-col grow justify-start gap-4 w-xs sm:w-sm md:w-md lg:w-lg">
@@ -70,10 +94,10 @@ export default function Thoughts() {
         </TypographyP>
       </ThoughtsDescriptionContainer>
       {
-        loading &&
+        isLoading &&
         <ThoughtsSkeleton />
       }
-      {!loading && thoughts.map((thought) => (
+      {!isLoading && thoughts.map((thought) => (
         <ThoughtItemContainer key={thought.id} className="self-stretch">
           <Separator />
           <ThoughtItem className="my-2 p-2 min-h-32 flex flex-col">
